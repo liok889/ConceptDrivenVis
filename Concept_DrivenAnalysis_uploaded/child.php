@@ -147,7 +147,7 @@ h6 {
 
 	$("#ShowImage").click(function(){
 			var imageDis = document.getElementById("image")
-			imageDis.src="SampleImage"+counter+".JPG";
+			imageDis.src="ConceptDrivenVis/Concept_DrivenAnalysis_uploaded/SampleImage"+counter+".JPG";
 			imageDis.height = 600;
 			imageDis.width = 600;
 			$("img").show();
