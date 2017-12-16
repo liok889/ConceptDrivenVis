@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cognitive Biases</title>
+	<style>
+	.states {
+		fill: #f0f0f0;//#bdc9e1;
+		stroke: #737373;//#fff;
+		stroke-width:1px;
+	}
+	.cities {
+		//opacity:0.5;
+	}	
+	div.tooltip {   
+	 	position: absolute;           
+		text-align: left;           
+		width: 100px;                  
+		height: 20px;                 
+		padding: 2px;             
+		font: 12px sans-serif;        
+		background: none;   
+		border: 1px;      
+		border-radius: 8px;           
+		pointer-events: none;         
+	}
+	
+	/* slider -start*/
+	.ticks {
+	  font: 10px sans-serif;
+	}
+
+	.track,
+	.track-inset,
+	.track-overlay {
+	  stroke-linecap: round;
+	}
+
+	.track {
+	  stroke: #000;
+	  stroke-opacity: 0.3;
+	  stroke-width: 10px;
+	}
+
+	.track-inset {
+	  stroke: #ddd;
+	  stroke-width: 8px;
+	}
+
+	.track-overlay {
+	  pointer-events: stroke;
+	  stroke-width: 50px;
+	  cursor: crosshair;
+	}
+
+	.handle {
+	  fill: #fff;
+	  stroke: #000;
+	  stroke-opacity: 0.5;
+	  stroke-width: 1.25px;
+	}
+	
+	
+	</style>
+
+</head>
+<body>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+	
+	
+	<svg id="main" width="600" height="300" style="position: absolute; left: 10px; top: 100px" >
+
+	</svg>
+
+	
+	<svg id="SliderSVG" width="500" height="50" style="position: absolute; left: 80px; top: 50px" >
+			
+	</svg>
+	
+  <script>
+   	
+	var USCities = ["Atlanta (Fulton County), GA",
+					"Boston, MA",
+					"Denver, CO",
+					//"Fort Worth (Tarrant County), TX",// removed
+					"Houston, TX",
+					"Las Vegas (Clark County), NV",
+					"Los Angeles, CA",
+					"Miami (Miami-Dade County), FL",
+					"Minneapolis, MN",
+					"New York City, NY",
+					//"Oakland, CA", // removed
+					"Phoenix, AZ",
+					"Portland (Multnomah County), OR",
+					"San Antonio, TX",
+					"San Diego County, CA",
+					"Washington, DC",
+					//"Baltimore, MD", // removed
+					"Chicago, IL",
+					"Detroit, MI",
+					"Kansas City, MO",
+					//"Long Beach, CA",//removed
+					"Philadelphia, PA",
+					//"San Jose, CA", // removed
+					"Seattle, WA",
+					"San Francisco, CA",
+					"Dallas, TX",
+					"Cleveland, OH",
+					"U.S. Total"
+					];
+	var USCitiesArray = ["Atlanta",
+					"Boston",
+					"Denver",
+					"Houston",
+					"Las Vegas",
+					"Los Angeles",
+					"Miami",
+					"Minneapolis",
+					"New York",
+					"Phoenix",
+					"Portland",
+					"San Antonio",
+					"San Diego",
+					"Washington",
+					"Chicago",
+					"Detroit",
+					"Kansas City",
+					"Philadelphia",
+					"Seattle",
+					"San Francisco",
+					"Dallas",
+					"Cleveland",
+					"U.S. Total"
+					];
+		
+	var MapSVG = d3.select("#main")
+	var MapW =  +MapSVG.attr("width");
+	var MapH = +MapSVG.attr("height");
+	 
+	var svg = d3.select("#main").append('g');
+	 
+	var projection = d3.geoAlbersUsa()
+		.scale(600)
+		.translate([350, 140]);
+		//.translate([MapW/(1.5), (MapH / 4)+10]);
+		
+	var path = d3.geoPath()
+		.projection(projection);
+		
+	var div = d3.select("body")
+				.append("div")   
+				.attr("class", "tooltip")               
+				.style("opacity", 0.6);
+		
+	d3.queue()
+		.defer(d3.json, "states.json")
+		.defer(d3.json, "cities.json")
+		.await(makeMyMap);
+
+	
+	var colorCity = ['#cb181d','#a50f15','#67000d','#810f7c','#cb181d','#a50f15','#67000d','#66c2a5','#3288bd',
+					 '#f768a1','#dd3497','#ae017e','#7a0177','#49006a','#dd3497','#ae017e','#7a0177','#49006a',
+					 '#78c679','#41ab5d','#238443','#006837','#df65b0','#e7298a','#ce1256','#980043','#67001f'];
+
+	function makeMyMap(error, states,cities) {
+	
+		svg.append('path')
+			.datum(topojson.feature(states, states.objects.usStates))
+				.attr('d', path)
+				.attr('class', 'states');
+		svg.selectAll('.cities')
+			.data(cities.features)
+			.enter()
+			.append('path')
+			.attr('d', path.pointRadius(8))
+			.attr('class', 'cities')
+			//.attr("fill","#045a8d")
+			.attr("fill","#cb181d")
+			.attr("opacity",1)
+			.on('mouseover',function(d)
+				{
+					div.attr("id","city")
+					.style("font-size", "20px")
+					//.style("left", (d3.event.pageX) + "px")		
+					//.style("top", (d3.event.pageY - 28) + "px")
+					.style("left","70px")		
+					.style("top", "285px")
+					.style("opacity", 0.7)
+					.html(d.properties.NAME);
+					
+				})
+			.on('mouseout',function(d,i)
+				{
+					div.attr("id","city")
+					.style("opacity", 0);
+									
+				})
+				
+				//SliderImplement();
+		}
+	
+</script>
+  
+</body>
+
+
+	</html>
