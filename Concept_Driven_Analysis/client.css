@@ -113,6 +113,8 @@ div.tooltip {
     min-height:35px;
     background-color: lavender;
     width:100%;
+    border: solid;
+    border-width: 1px;
 }
 /*from here codes for tooltip*/
 
