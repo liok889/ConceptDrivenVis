@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cognitive Biases</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="client.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src="graph.js"></script>
+	<script type="text/javascript" src="Slider.js"></script>
+</head>
+	<style>
+
+	/* slider -end*/
+	</style>
+	<!--<div class="modal-wrapper" id="greying"></div>-->
+	<div class="container1" style="position:absolute; top:3px;left:75px;">
+	
+		<div class="dropdown">
+			<button id="SubstanceAbuse" 
+				style="background-color:#e0f3db;color:green;" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">Substance Abuse
+				<span class="caret"></span>
+			</button>
+		<ul class="dropdown-menu">
+			  <div class="varName">
+				  <span class="tooltiptext">Opiod Mortality Rate</span>
+				  <li><a href="#" id="OpioidMR" onclick="varName('Opiod Mortality')">Opioid MR </a></li>
+			  </div>
+			<div class="varName">
+				<span class="tooltiptext">Adult Binge Drinking</span>
+			   <li><a href="#" id="AdultBinge" onclick="varName('Adult Binge Drinking')">Adult Binge</a></li>
+			</div>
+			<div class="varName">
+				<span class="tooltiptext">Teen Binge Drinking</span>
+			  <li><a href="#" id ="TeenBinge" onclick="varName('Teen Binge Drinking')">Teen Binge</a></li>
+			</div>
+		</ul>
+	  </div>	
+	</div> 
+		
+	<div class="container2" style="position:absolute; top:3px;left:228px;">
+	  <div class="dropdown">
+		<button id="Cancer" 
+				style="background-color:#e0f3db;color:green" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">Cancer
+		<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+		  <li><a href="#" id ="AllCancer" onclick="varName('All Cancer')">All</a></li>
+		  <li><a href="#" id ="FemBreastCancer" onclick="varName('Breast Cancer')">Breast Cancer</a></li>
+		  <li><a href="#" id ="LungCancer" onclick="varName('Lung Cancer')">Lung Cancer</a></li>
+		</ul>
+	  </div>	
+	</div>
+	
+	<div class="container3" style="position:absolute; top:3px;left:315px;">
+	  <div class="dropdown">
+		<button id="ChronicDisease" 
+				style="background-color:#e0f3db;color:green" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">Chronic Disease
+		<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+		  <li><a id ="AsthamaMR" href="#" onclick="varName('Asthma')" >Asthma</a></li>
+		  <li><a id ="DiabetesMR" href="#" onclick="varName('Diabetes')">Diabetes</a></li>
+		  <li><a id ="HeartDiseaseMR" href="#" onclick="varName('Heart Disease')">Heart Disease</a></li>
+		  <li><a id ="AdultObesity" href="#" onclick="varName('Adult Obesity')">Adult Obesity</a></li>
+		  <li><a id ="AdultSmoking" href="#" onclick="varName('Adult Smoking')">Adult Smoking</a></li>
+		  <li><a id ="TeenSmoking" href="#" onclick="varName('Teen Smoking')">Teen Smoking</a></li>
+		  <li><a id ="TeenObesity" href="#" onclick="varName('Teen Obesity')">Teen Obesity</a></li>
+		</ul>
+	  </div>	
+	</div>
+	<div class="container4" style="position:absolute; top:3px;left:460px;">
+	  <div class="dropdown">
+		<button id="FoodSafety" 
+				style="background-color:#e0f3db;color:green" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">Food Safety
+		<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+		  <li><a id ="Salmonella" href="#" onclick="varName('Salmonella Infection')">Salmonella Infection</a></li>
+		  <li><a id ="EColi" href="#" onclick="varName('E. Coli Infection')">E.Coli Infection</a></li>
+		</ul>
+	  </div>	
+	</div>
+	
+	<div class="container4" style="position:absolute; top:3px;left:578px;">
+	  <div class="dropdown">
+		<button id="Financial" 
+				style="background-color:#e0f3db;color:green" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">Financial
+		<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+		  <li><a id ="Income" href="#" onclick="varName('Income')">Income</a></li>
+		   <li><a id ="HousingCost" href="#" onclick="varName('Housing Cost')">Housing Cost</a></li>
+		   <li><a id ="PovertyLevel" href="#" onclick="varName('Poverty Level')">Poverty Level</a></li>
+		   <li><a id ="ChildPoverty" href="#" onclick="varName('Child Poverty')">Child Poverty</a></li>
+		   <li><a id ="Unemployment" href="#" onclick="varName('Unemployment')">Unemployment</a></li>
+		</ul>
+	  </div>	
+	</div>
+	<div class="container4" style="position:absolute; top:3px;left:675px;">
+	  <div class="dropdown">
+		<button id="People" 
+				style="background-color:#e0f3db;color:green" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">People
+		<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+		  <li><a id ="AgingPopulation" href="#" onclick="varName('Aging Population')">Aging Population</a></li>
+		   <li><a id ="ForeignBorn" href="#" onclick="varName('Foreign Born')">Foreign Born</a></li>
+		   <li><a id ="YouthPopulation" href="#" onclick="varName('Youth Population')">Youth Population</a></li>
+		   <li><a id ="UninsurePopulation" href="#" onclick="varName('Uninsured Population')">Uninsured Population</a></li>
+		 <!--  <li><a id ="Race" href="#">Race</a></li>
+		  <li><a id ="Sex" href="#">Sex</a></li>-->
+		</ul>
+	  </div>	
+	</div>
+	<div class="container5" style="position:absolute; top:3px;left:760px;">
+	  <div class="dropdown">
+		<button id="Education" 
+				style="background-color:#e0f3db;color:green" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">Education
+		<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+		  <li><a id ="TotalEd" href="#">Total Education</a></li>
+		   <li><a id ="EnglishSpeaking" href="#" onclick="varName('English Speaking')">English Speaking</a></li>
+		   <li><a id ="SpanishSpeaking" href="#" onclick="varName('Spanish Speaking')">Spanish Speaking</a></li>
+		   <li><a id ="PreschoolEnroll" href="#" onclick="varName('Preschool Enrollment')">Preschool Enrollment</a></li>
+		<!--   <li><a id ="TotalPop" href="#">Total Population</a></li> -->
+		</ul>
+	  </div>	
+	</div>
+	<div class="container6" style="position:absolute; top:3px;left:863px;">
+	  <div class="dropdown">
+		<button id="InfectiousDisease" 
+				style="background-color:#e0f3db;color:green" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">Infectious Disease
+		<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+		  <li><a id ="PneumoniaVac" href="#" onclick="varName('Pneumonia (Age 65+)')">Pneumonia(Age 65+)</a></li>
+		   <li><a id ="AdultFluVac" href="#" onclick="varName('Adult Flu')">Adult Flu</a></li>
+		   <li><a id ="ChildFluVac" href="#" onclick="varName('Child Flu')">Child Flu</a></li>
+		   <li><a id ="PneumoniaInfluenzaMR" href="#" onclick="varName('Pneumonia + Influenza')">Pneumonia + Influenza</a></li>
+		   <li><a id ="TuberculosisIR" href="#" onclick="varName('Tuberculosis')">Tuberculosis</a></li>
+		</ul>
+	  </div>	
+	</div>
+
+	<div class="container7" style="position:absolute; top:3px;left:1020px;">
+	  <div class="dropdown">
+		<button id="Injury" 
+				style="background-color:#e0f3db;color:green" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">Injury
+		<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+		  <li><a id ="FirearmMR" href="#" onclick="varName('Firearm')">Firearm</a></li>
+		   <li><a id ="HomicideMR" href="#" onclick="varName('Homicide')">Homicide</a></li>
+		   <li><a id ="MotorVehicleMR" href="#" onclick="varName('Motor Vehicle')">Motor Vehicle</a></li>
+		   <li><a id ="SuicideMR" href="#" onclick="varName('Suicide')">Suicide Rate</a></li>
+		</ul>
+	  </div>	
+	</div>
+	
+	<div class="container8" style="position:absolute; top:3px;left:1097px;">
+	  <div class="dropdown">
+		<button id="Life" 
+				style="background-color:#e0f3db;color:green" 
+				class="btn btn-primary dropdown-toggle" 
+				type="button" data-toggle="dropdown">Life
+		<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+		  <li><a id ="DeathR" href="#" onclick="varName('Death Rate')">Death Rate</a></li>
+		   <li><a id ="LifeExpectancy" href="#" onclick="varName('Life Expectancy')">Life Expectancy</a></li>
+		</ul>
+	  </div>	
+	</div>
+	<!--loading gif div-->
+	<div  id="loading" style="position:absolute; top:250px;left:550px;width:90%;height:90%;display:none">
+		<img src="loading.gif">
+	</div>
+
+
+	<svg id="main" width="600" height="300" style="position: absolute; left: 10px; top: 50px" >
+
+	</svg>
+	
+	<!--<svg id="SliderSVG" width="500" height="50" style="position: absolute; left: 800px; top: 50px" >-->
+			<!---->
+	<!--</svg>-->
+	<div class="container8" style="position:absolute; top:50px;left:855px;">
+		<button style="background-color:#e0f3db;color:green" onclick="varName(2010)">2010</button>
+		<button style="background-color:#e0f3db;color:green" onclick="varName(2011)">2011</button>
+		<button style="background-color:#e0f3db;color:green" onclick="varName(2012)">2012</button>
+		<button style="background-color:#e0f3db;color:green" onclick="varName(2013)">2013</button>
+		<button style="background-color:#e0f3db;color:green" onclick="varName(2014)">2014</button>
+		<button style="background-color:#e0f3db;color:green" onclick="varName(2015)">2015</button>
+	</div>
+
+<div id="Client"> </div>
+
+<body>
+
+	<script>
+
+
+   $('#Client').load("child.php");
+
+   var USCities = ["Atlanta (Fulton County), GA",
+					"Boston, MA",
+					"Denver, CO",
+					//"Fort Worth (Tarrant County), TX",// removed
+					"Houston, TX",
+					"Las Vegas (Clark County), NV",
+					"Los Angeles, CA",
+					"Miami (Miami-Dade County), FL",
+					"Minneapolis, MN",
+					"New York City, NY",
+					//"Oakland, CA", // removed
+					"Phoenix, AZ",
+					"Portland (Multnomah County), OR",
+					"San Antonio, TX",
+					"San Diego County, CA",
+					"Washington, DC",
+					//"Baltimore, MD", // removed
+					"Chicago, IL",
+					"Detroit, MI",
+					"Kansas City, MO",
+					//"Long Beach, CA",//removed
+					"Philadelphia, PA",
+					//"San Jose, CA", // removed
+					"Seattle, WA",
+					"San Francisco, CA",
+					"Dallas, TX",
+					"Cleveland, OH",
+					"U.S. Total"
+					];
+	var USCitiesArray = ["Atlanta",
+					"Boston",
+					"Denver",
+					"Houston",
+					"Las Vegas",
+					"Los Angeles",
+					"Miami",
+					"Minneapolis",
+					"New York",
+					"Phoenix",
+					"Portland",
+					"San Antonio",
+					"San Diego",
+					"Washington",
+					"Chicago",
+					"Detroit",
+					"Kansas City",
+					"Philadelphia",
+					"Seattle",
+					"San Francisco",
+					"Dallas",
+					"Cleveland",
+					"U.S. Total"
+					];
+
+
+	var MapSVG = d3.select("#main")
+	var MapW =  +MapSVG.attr("width");
+	var MapH = +MapSVG.attr("height");
+	 
+	var svg = d3.select("#main").append('g');
+	 
+	var projection = d3.geoAlbersUsa()
+		.scale(600)
+		.translate([350, 140]);
+		//.translate([MapW/(1.5), (MapH / 4)+10]);
+		
+	var path = d3.geoPath()
+		.projection(projection);
+		
+	var div = d3.select("body")
+				.append("div")   
+				.attr("class", "tooltip")               
+				.style("opacity", 0.6);
+		
+	d3.queue()
+		.defer(d3.json, "states.json")
+		.defer(d3.json, "cities.json")
+		.await(makeMyMap);
+
+	
+	var colorCity = ['#cb181d','#a50f15','#67000d','#810f7c','#cb181d','#a50f15','#67000d','#66c2a5','#3288bd',
+					 '#f768a1','#dd3497','#ae017e','#7a0177','#49006a','#dd3497','#ae017e','#7a0177','#49006a',
+					 '#78c679','#41ab5d','#238443','#006837','#df65b0','#e7298a','#ce1256','#980043','#67001f'];
+
+	function makeMyMap(error, states,cities) {
+	
+		svg.append('path')
+			.datum(topojson.feature(states, states.objects.usStates))
+				.attr('d', path)
+				.attr('class', 'states');
+		svg.selectAll('.cities')
+			.data(cities.features)
+			.enter()
+			.append('path')
+			.attr('d', path.pointRadius(8))
+			.attr('class', 'cities')
+			//.attr("fill","#045a8d")
+			.attr("fill","#cb181d")
+			.attr("opacity",1)
+			.on('mouseover',function(d)
+				{
+					div.attr("id","city")
+					.style("font-size", "20px")
+					//.style("left", (d3.event.pageX) + "px")		
+					//.style("top", (d3.event.pageY - 28) + "px")
+					.style("left","70px")		
+					.style("top", "285px")
+					.style("opacity", 0.7)
+					.html(d.properties.NAME);
+				})
+			.on('click', function(d){
+			    varName(d.properties.NAME);
+			})
+			.on('mouseout',function(d,i)
+				{
+					div.attr("id","city")
+					.style("opacity", 0);
+									
+				})
+				
+				//SliderImplement();
+		}
+   //upon clicking variables or map, show it in the text box
+   function varName(varName){
+	    //select textbox and display the var name there
+	   //upon click, create a text element and append it to the textbox
+	   //var name = document.createTextNode(varName);
+	   var text = $("#message").val();
+
+	   text = text + ' '+ varName;
+		$("#message").replaceWith('<textarea id="message">'+text+'</textarea>');
+	   //document.getElementById("message").html(text);
+   }
+   function makeVisible(){
+       $("#loading").display("block");
+   }
+	</script>
+  
+</body>
+	</html>
