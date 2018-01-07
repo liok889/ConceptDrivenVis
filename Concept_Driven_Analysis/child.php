@@ -108,7 +108,7 @@ h6 {
 <!--				<button id="ShowImage" class="button">Show Image</button>-->
 <!--		</div>-->
 		
-<div id="graph-container" style="position:absolute;left:800px;top:100px;" >
+<div id="graph-container" style="position:absolute;left:615px;top:100px;" >
 
 <!--		<img id="image" class="imageStyle" src=" " > </img>-->
 </div>

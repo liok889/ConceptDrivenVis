@@ -3,18 +3,37 @@
 //all have delete icon and maximize icon, minimize icon
 //maybe create a new div when a new graph is added...
 var bannerSize = "30px";
+var opengraphs = 0;//becomes 1 when a graph is opened; 0 when all are closed
+var opengraphsNum = [];//stores currently displayed graphs (opened + closed)
+var currentgraph = 0; //id number of the graph that is currently open. will be changed when delete/maximize is called
+
 function deleteGraph(idNum){
     //remove() the div with same counter number
     $("#graph"+idNum).remove();
     $("#banner"+idNum).remove();
+
+    //find and delete the id num of the graph deleted from opengraphsNum
+    for(var i=0;i<opengraphsNum.length;i++){
+        if(idNum == opengraphsNum[i]) opengraphsNum.splice(i,1);
+    }
+
+    // //display the graph at the bottom if none of the graphs are opened
+    if(opengraphs == 0 || currentgraph == idNum) {
+        var num = opengraphsNum[opengraphsNum.length - 1];
+        $("#graph" + num).css("display", "block");
+        opengraphs = 1;
+    }
+    opengraphs = 0;
 }
 function minimize(idNum){
     $("#graph" + idNum).css("display", "none");
+    opengraphs = 0;
 }
 function maximize(idNum){
     $(".graphDiv").css("display","none");
     $("#graph" + idNum).css("display", "block");
-
+    opengraphs = 1;
+    currentgraph = idNum;
 }
 function createBanner(msg){
     var closeIcon = document.createElement("IMG");
@@ -40,7 +59,7 @@ function createBanner(msg){
     var title = document.createElement("div");
     title.style.height = bannerSize;
     title.id = "titleDiv"+counter;
-    title.style.width = "500px";
+    title.style.width = "750px";
     //title.style.padding = "0px 500px 0px 0px";
     //title.style.backgroundColor = "red";
 
@@ -67,6 +86,8 @@ function createBanner(msg){
     $("#iconDiv"+counter).append(minIcon);
     $("#titleText"+counter).text(msg);
 
+
+
 }
 function addGraph(msg) {
     //receive image address and put it in a new div
@@ -81,7 +102,7 @@ function addGraph(msg) {
 
     var newDiv = document.createElement("div");
     newDiv.style.height = "600px";
-    newDiv.style.width = "600px";
+    newDiv.style.width = "800px";
     newDiv.className = "graphDiv";
     newDiv.id = "graph" + counter;
 
@@ -91,7 +112,7 @@ function addGraph(msg) {
 
     imageDis.src = "SampleImage" + counter + ".jpg";
     imageDis.height = 600;
-    imageDis.width = 600;
+    imageDis.width = 950;
     imageDis.className = "graph";
     //imageDis.class = "graph";
     imageDis.id = "image" + counter;
@@ -116,6 +137,9 @@ function addGraph(msg) {
         var num = name.slice(-1);
         minimize(num);
     });
-
+    opengraphsNum.push(counter);
+    opengraphs = 1;
+    currentgraph = counter;
     counter++;
+
 }
