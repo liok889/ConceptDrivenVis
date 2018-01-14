@@ -7,8 +7,7 @@ var opengraphs = 0;//becomes 1 when a graph is opened; 0 when all are closed
 var opengraphsNum = [];//stores currently displayed graphs (opened + closed)
 var currentgraph = 0; //id number of the graph that is currently open. will be changed when delete/maximize is called
 
-function deleteGraph(idNum){
-    //remove() the div with same counter number
+function deleteGraph(idNum){//remove() the div with same counter number
     $("#graph"+idNum).remove();
     $("#banner"+idNum).remove();
 
@@ -35,7 +34,7 @@ function maximize(idNum){
     opengraphs = 1;
     currentgraph = idNum;
 }
-function createBanner(msg){
+function createBanner(msg){//create header for each div, which contains icons and title
     var closeIcon = document.createElement("IMG");
     var maxIcon = document.createElement("IMG");
     var minIcon = document.createElement("IMG");
@@ -86,8 +85,6 @@ function createBanner(msg){
     $("#iconDiv"+counter).append(minIcon);
     $("#titleText"+counter).text(msg);
 
-
-
 }
 function addGraph(msg) {
     //receive image address and put it in a new div
@@ -110,7 +107,7 @@ function addGraph(msg) {
     //imageDis.src="http://research.vis.ninja/visoz/SampleImage"+counter+".JPG";
     //imageDis.src="http://research.vis.ninja/visoz/SampleImage4.JPG";
 
-    imageDis.src = "SampleImage" + counter + ".jpg";
+    imageDis.src = "SampleImage" + counter + ".jpg";//currently located local
     imageDis.height = 600;
     imageDis.width = 950;
     imageDis.className = "graph";
@@ -137,6 +134,7 @@ function addGraph(msg) {
         var num = name.slice(-1);
         minimize(num);
     });
+    //when a new graph is added, other graphs closes automatically.
     opengraphsNum.push(counter);
     opengraphs = 1;
     currentgraph = counter;
