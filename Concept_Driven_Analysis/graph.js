@@ -104,10 +104,10 @@ function addGraph(msg) {
     newDiv.id = "graph" + counter;
 
     var imageDis = document.createElement("IMG");
-    //imageDis.src="http://research.vis.ninja/visoz/SampleImage"+counter+".JPG";
+    imageDis.src="http://research.vis.ninja/visoz/img"+counter+".png";
     //imageDis.src="http://research.vis.ninja/visoz/SampleImage4.JPG";
 
-    imageDis.src = "SampleImage" + counter + ".jpg";//currently located local
+    //imageDis.src = "SampleImage" + counter + ".jpg";//currently located local
     imageDis.height = 600;
     imageDis.width = 950;
     imageDis.className = "graph";
