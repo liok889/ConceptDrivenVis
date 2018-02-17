@@ -98,8 +98,7 @@ div.tooltip {
 }
 .graphDiv{
     height:600px;
-    width:600px;
-    /*background-color: blue;*/
+    width:100%;
 }
 .icon{
     height:25px;

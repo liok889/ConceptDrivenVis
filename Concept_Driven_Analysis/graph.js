@@ -58,7 +58,7 @@ function createBanner(msg){//create header for each div, which contains icons an
     var title = document.createElement("div");
     title.style.height = bannerSize;
     title.id = "titleDiv"+counter;
-    title.style.width = "750px";
+    title.style.width = "1015px";
     //title.style.padding = "0px 500px 0px 0px";
     //title.style.backgroundColor = "red";
 
@@ -99,7 +99,7 @@ function addGraph(msg) {
 
     var newDiv = document.createElement("div");
     newDiv.style.height = "600px";
-    newDiv.style.width = "800px";
+    newDiv.style.width = "1115px";
     newDiv.className = "graphDiv";
     newDiv.id = "graph" + counter;
 
@@ -109,7 +109,7 @@ function addGraph(msg) {
 
     //imageDis.src = "SampleImage" + counter + ".jpg";//currently located local
     imageDis.height = 600;
-    imageDis.width = 950;
+    imageDis.width = 1115;
     imageDis.className = "graph";
     //imageDis.class = "graph";
     imageDis.id = "image" + counter;
