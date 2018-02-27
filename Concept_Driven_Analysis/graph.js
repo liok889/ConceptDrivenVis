@@ -20,17 +20,21 @@ function deleteGraph(idNum){//remove() the div with same counter number
     if(opengraphs == 0 || currentgraph == idNum) {
         var num = opengraphsNum[opengraphsNum.length - 1];
         $("#graph" + num).css("display", "block");
+        $("#banner" + num).css("backgroundColor", "orange");
         opengraphs = 1;
     }
     opengraphs = 0;
 }
 function minimize(idNum){
     $("#graph" + idNum).css("display", "none");
+    $("#banner" + idNum).css("backgroundColor", "lavender");
     opengraphs = 0;
 }
 function maximize(idNum){
     $(".graphDiv").css("display","none");
+    $(".banner").css("backgroundColor", "lavender");
     $("#graph" + idNum).css("display", "block");
+    $("#banner" + idNum).css("backgroundColor", "orange");
     opengraphs = 1;
     currentgraph = idNum;
 }
@@ -54,6 +58,7 @@ function createBanner(msg){//create header for each div, which contains icons an
     var banner = document.createElement("div");
     banner.className = "banner";
     banner.id = "banner"+counter;
+    banner.style.backgroundColor = "orange";
 
     var title = document.createElement("div");
     title.style.height = bannerSize;
@@ -93,6 +98,7 @@ function addGraph(msg) {
     if (counter > 1) {
         for (var i = 1; i < counter; i++) {
             $("#graph" + i).css("display", "none");
+            $("#banner" + i).css("backgroundColor", "lavender");
         }
     }
     createBanner(msg);
@@ -107,9 +113,8 @@ function addGraph(msg) {
     imageDis.src="http://research.vis.ninja/visoz/img"+counter+".png";
     //imageDis.src="http://research.vis.ninja/visoz/SampleImage4.JPG";
 
-    //imageDis.src = "SampleImage" + counter + ".jpg";//currently located local
-    imageDis.height = 600;
-    imageDis.width = 1115;
+    // imageDis.src = "SampleImage" + counter + ".jpg";//currently located local
+
     imageDis.className = "graph";
     //imageDis.class = "graph";
     imageDis.id = "image" + counter;

@@ -83,7 +83,7 @@
     <div id="message-to-outer">
 
         <div id="message-to-container">
-            <textarea id="message"></textarea>
+            <textarea id="message" style="font-size: 16pt"></textarea>
             <button id="send-message-parent"
                     class="button"
                     style="position:absolute; width:150px;height:30px;">
