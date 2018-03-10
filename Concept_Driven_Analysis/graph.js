@@ -16,14 +16,18 @@ function deleteGraph(idNum){//remove() the div with same counter number
         if(idNum == opengraphsNum[i]) opengraphsNum.splice(i,1);
     }
 
-    // //display the graph at the bottom if none of the graphs are opened
-    if(opengraphs == 0 || currentgraph == idNum) {
+    //display the graph at the bottom if none of the graphs are opened
+    if(idNum == opengraphsNum[opengraphsNum.length - 1]) {
+        console.log("opengraphs = " + opengraphs);
         var num = opengraphsNum[opengraphsNum.length - 1];
         $("#graph" + num).css("display", "block");
         $("#banner" + num).css("backgroundColor", "orange");
         opengraphs = 1;
+        console.log("idNum =  " + idNum);
+        console.log("openGraphsNum = " + num);
     }
     opengraphs = 0;
+
 }
 function minimize(idNum){
     $("#graph" + idNum).css("display", "none");
@@ -95,8 +99,8 @@ function addGraph(msg) {
     //receive image address and put it in a new div
     //minimize other graphs
     //display the div to the fullest size
-    if (counter > 1) {
-        for (var i = 1; i < counter; i++) {
+    if (counter > 0) {
+        for (var i = 0; i < counter; i++) {
             $("#graph" + i).css("display", "none");
             $("#banner" + i).css("backgroundColor", "lavender");
         }
@@ -131,7 +135,7 @@ function addGraph(msg) {
     });
     $(".max").click(function () {
         var name = this.id;
-        var num = name.slice(-1);
+        var num = name.slice(5);
         maximize(num);
     });
     $(".min").click(function () {
@@ -144,5 +148,4 @@ function addGraph(msg) {
     opengraphs = 1;
     currentgraph = counter;
     counter++;
-
 }

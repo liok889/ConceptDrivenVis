@@ -111,7 +111,7 @@
 <script>
     var container = document.getElementById("graph-container");
     DisableButton();
-    var counter =1;
+    var counter = 0;
     var msg;
 
     $("#send-message-parent").on('click', function() {
@@ -119,7 +119,7 @@
             window.opener.ProcessChildMessage($("#message").val());
             msg = $("#message").val();
             $("#loading").css("display","block");
-            $("#message").val(' ');
+
             //DisableButton();
             //document.getElementById("PostImage").disabled = false;
             //document.getElementById("PostImage").className = "button";
@@ -138,6 +138,7 @@
         //document.getElementById("ShowImage").disabled = false;
         //document.getElementById("ShowImage").className = "button";
         $("#loading").css("display","none");
+        $("#message").val(' ');
         addGraph(msg);
         //DisableButton();
     }
