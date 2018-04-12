@@ -9,7 +9,7 @@
             width: 200px;
             margin: 0px;
             overflow: hidden;
-            top:50px;
+            top:0px;
         }
         h6 {
             margin: 0 0 20px 0;
@@ -25,10 +25,19 @@
         }
         #message-to-container {
             height: 100%;
+
         }
-        #message-to-container textarea {
-            min-height: 500px;
-            margin: 0 0 20px 0;
+        #textAreaQuestion {
+            min-height: 400px;
+            margin: 0 0 10px 0;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            resize: none;
+        }
+        #textAreaExp {
+            min-height: 200px;
+            margin: 0 0 10px 0;
             display: block;
             box-sizing: border-box;
             width: 100%;
@@ -83,10 +92,13 @@
     <div id="message-to-outer">
 
         <div id="message-to-container">
-            <textarea id="message" style="font-size: 16pt"></textarea>
+            <text>Question</text>
+            <textarea id="textAreaQuestion" style="font-size: 16pt"></textarea>
+            <text>Expectation</text>
+            <textarea id="textAreaExp" style="font-size: 16pt"></textarea>
             <button id="send-message-parent"
                     class="button"
-                    style="position:absolute; width:150px;height:30px;">
+                    style="width:150px;height:30px;">
                 Submit Request
             </button>
         </div>
@@ -113,11 +125,14 @@
     DisableButton();
     var counter = 0;
     var msg;
+    var exp;
 
     $("#send-message-parent").on('click', function() {
-        if($.trim($("#message").val()) != '') {
-            window.opener.ProcessChildMessage($("#message").val());
-            msg = $("#message").val();
+        if($.trim($("#textAreaQuestion").val()) != '') {
+            window.opener.ProcessChildMessage($("#textAreaQuestion").val());
+            window.opener.ProcessChildMessage($("#textAreaExp").val());
+            msg = $("#textAreaQuestion").val();
+            exp = $("#textAreaExp").val();
             $("#loading").css("display","block");
 
             //DisableButton();
@@ -138,7 +153,8 @@
         //document.getElementById("ShowImage").disabled = false;
         //document.getElementById("ShowImage").className = "button";
         $("#loading").css("display","none");
-        $("#message").val(' ');
+        $("#textAreaQuestion").val(' ');
+        $("#textAreaExp").val(' ');
         addGraph(msg);
         //DisableButton();
     }
